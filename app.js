@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const axios = require('axios')
-const cors = requires('cors')
+const cors = require('cors')
 
 app.use(cors())
 
