@@ -1,0 +1,27 @@
+{
+  "name": "api-forward",
+  "version": "1.0.0",
+  "description": "An api to forward requests from fiddles and pens.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colonelpopcorn/api-forward.git"
+  },
+  "author": "Jonathan Ling",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/colonelpopcorn/api-forward/issues"
+  },
+  "homepage": "https://github.com/colonelpopcorn/api-forward#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.1"
+  }
+}
