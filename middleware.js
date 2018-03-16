@@ -19,17 +19,21 @@ validateKey = function(req, res, next) {
 getResponse = function(req, res, next) {
 	let reqConfig = {
 		baseUrl: req.apiUrl,
+		headers: { "Authorization" : `Bearer ${req.apiKey}` },
 		params: req.body,
 	}
 	axios(reqConfig)
 	.then(data => {
 		res.json(data);
+		return
 	})
 	.catch(error => {
 		console.log(error)
 		res.send({status: 'failed', response: `API request failed: ${error.message}`})
+		return
 	})
+	return
 }
 
 
-module.exports = middleware = { validateKey, getR }
+module.exports = middleware = { validateKey, getResponse }
