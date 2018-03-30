@@ -1,6 +1,5 @@
 require('dotenv').config()
 const app = require('express')()
-const axios = require('axios')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const mWare = require('./middleware.js')
@@ -25,7 +24,7 @@ else {
 
 app.use(bodyParser.json())
 
-app.get('/:appName', mWare.validateKey, mWare.getResponse)
+app.get('/:appName', mWare.addHeaders, mWare.getResponse)
 
 app.get('*', function(req, res, next) {
 	res.json({name: 'api-forward', version: '1.0.0'})
