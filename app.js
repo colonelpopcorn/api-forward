@@ -22,7 +22,7 @@ if (!process.env.WHITELIST) {
 
 app.use(bodyParser.json())
 
-app.get('/:appName', mWare.addHeaders, mWare.getResponse)
+app.post('/:appName', mWare.addHeaders, mWare.getResponse)
 
 app.get('*', function(req, res, next) {
   res.json({
