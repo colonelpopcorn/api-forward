@@ -5,21 +5,19 @@ const bodyParser = require('body-parser')
 const mWare = require('./middleware.js')
 
 if (!process.env.WHITELIST) {
-	app.use(cors())
-}
-else {
-	let corsOptions = {
-		whitelist: process.env.WHITELIST.split(','),
-		origin: function (origin, callback) {
-		    if (this.whitelist.indexOf(origin) !== -1) {
-		    	callback(null, true)
-		    }
-		    else {
-		    	callback(new Error('Not allowed by CORS'))
-		    }
-		}
-	}
-	app.use(cors(corsOptions))
+  app.use(cors())
+} else {
+  let corsOptions = {
+    whitelist: process.env.WHITELIST.split(','),
+    origin: function(origin, callback) {
+      if (this.whitelist.indexOf(origin) !== -1) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    }
+  }
+  app.use(cors(corsOptions))
 }
 
 app.use(bodyParser.json())
@@ -27,9 +25,14 @@ app.use(bodyParser.json())
 app.get('/:appName', mWare.addHeaders, mWare.getResponse)
 
 app.get('*', function(req, res, next) {
-	res.json({name: 'api-forward', version: '1.0.0'})
+  res.json({
+    name: 'api-forward',
+    version: '1.0.0'
+  })
 })
 
 let portNumber = process.env.PORT || 3000
 
-app.listen(portNumber, () => { console.log(`Listening on port ${portNumber}!`) })
+app.listen(portNumber, () => {
+  console.log(`Listening on port ${portNumber}!`)
+})
