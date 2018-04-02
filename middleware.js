@@ -19,7 +19,7 @@ addHeaders = function(req, res, next) {
     req.container.headers[`${process.env[variable + '_KEY']}`] = process.env[`${variable}_VALUE`]
   }
 
-  req.apiUrl = process.env[`${req.params.appName}_URL`] || req.body.apiUrl || false
+  req.apiUrl = process.env[`${req.params.appName}_URL`] || decodeURI(JSON.parse(req.body.apiUrl)) || false
 
   if (req.container.headers['']) {
     res.json({
@@ -54,7 +54,7 @@ addHeaders = function(req, res, next) {
 }
 
 getResponse = function(req, res, next) {
-  console.log(req.container.headers, req.body)
+  //console.log(req.apiUrl)
   let reqConfig = {
     url: req.apiUrl,
     headers: req.container.headers,

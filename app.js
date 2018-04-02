@@ -20,7 +20,9 @@ if (!process.env.WHITELIST) {
   app.use(cors(corsOptions))
 }
 
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+	extended: true
+}))
 
 app.post('/:appName', mWare.addHeaders, mWare.getResponse)
 
