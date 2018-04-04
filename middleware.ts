@@ -1,15 +1,13 @@
 const util = require('util')
 const axios = require('axios')
 
-addHeaders = function(req, res, next) {
+function addHeaders(req, res, next) {
   let appName = req.params.appName
-  let listOfReqVars = process.env[appName] || false
+  let preSplitListOfReqVars = process.env[appName]
+  let listOfReqVars : string[]
 
-  if (listOfReqVars) {
-    listOfReqVars = listOfReqVars.split(',')
-  }
-  if (!util.isArray(listOfReqVars)) {
-    listOfReqVars = [listOfReqVars]
+  if (preSplitListOfReqVars !== null) {
+    listOfReqVars = preSplitListOfReqVars.split(',')
   }
 
   req.container = {}
@@ -53,7 +51,7 @@ addHeaders = function(req, res, next) {
   next()
 }
 
-getResponse = function(req, res, next) {
+function getResponse(req, res, next) {
   //console.log(req.apiUrl)
   let reqConfig = {
     url: req.apiUrl,
@@ -76,7 +74,7 @@ getResponse = function(req, res, next) {
 }
 
 
-module.exports = middleware = {
+module.exports = {
   addHeaders,
   getResponse
 }
