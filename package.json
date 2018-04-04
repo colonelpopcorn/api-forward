@@ -26,6 +26,11 @@
     "express": "^4.16.2"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/body-parser": "^1.16.8",
+    "@types/cors": "^2.8.3",
+    "@types/dotenv": "^4.0.3",
+    "@types/express": "^4.11.1",
     "@types/node": "^9.6.2",
     "nodemon": "^1.17.1"
   }

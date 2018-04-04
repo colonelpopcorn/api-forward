@@ -1,8 +1,8 @@
-require('dotenv').config()
-const app = require('express')()
-const cors = require('cors')
-const bodyParser = require('body-parser')
-const mWare = require('./middleware.js')
+import * as dotenv from 'dotenv'
+import * as express from 'express'
+import * as cors from 'cors'
+import * as bodyParser from 'body-parser'
+import * as mWare from './middleware'
 
 if (!process.env.WHITELIST) {
   app.use(cors())
