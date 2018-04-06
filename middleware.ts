@@ -3,7 +3,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import * as util from 'util';
 import * as axios from 'axios';
 
-export class Middleware {
+export default class Middleware {
   public addHeaders(req: Request, res: Response, next: NextFunction) {
     let appName = req.params.appName
     let preSplitListOfReqVars = process.env[appName]
@@ -54,7 +54,7 @@ export class Middleware {
     next()
   }
 
-  public getResponse(req, res, next) {
+  public getResponse(req: Request, res: Response, next: NextFunction) {
     //console.log(req.apiUrl)
     let reqConfig = {
       url: req.apiUrl,
@@ -76,11 +76,4 @@ export class Middleware {
     return
   }
 
-}
-
-
-
-module.exports = {
-  addHeaders,
-  getResponse
 }
