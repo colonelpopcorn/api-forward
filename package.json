@@ -4,9 +4,7 @@
   "description": "An api to forward requests from fiddles and pens.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ts-mocha -p src/ src/**/*.spec.ts"
   },
   "repository": {
     "type": "git",
@@ -30,8 +28,14 @@
     "@types/body-parser": "^1.16.8",
     "@types/cors": "^2.8.3",
     "@types/dotenv": "^4.0.3",
+    "@types/expect": "^1.20.3",
     "@types/express": "^4.11.1",
+    "@types/mocha": "^5.1.0",
     "@types/node": "^9.6.2",
-    "nodemon": "^1.17.1"
+    "mocha": "^5.1.1",
+    "nodemon": "^1.17.1",
+    "ts-mocha": "^1.2.0",
+    "ts-node": "^6.0.0",
+    "typescript": "^2.8.1"
   }
 }
