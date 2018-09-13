@@ -1,6 +1,8 @@
 import { Listeners } from 'types/Listeners';
 import http from 'http';
+import { HttpServerConfiguration } from 'types/HttpServerConfiguration';
 
+/** Collection of help functions to start a Node.js http server. */
 export default class HttpHelper {
 
    /**
@@ -71,7 +73,12 @@ export default class HttpHelper {
     }
   }
 
-  public static createServer(config: any) : http.Server {
+  /**
+   * A function to create and start a Node.js http server.
+   * @param config {HttpServerConfiguration} An object containing an app, a port, and onError and onListening handlers.
+   * @returns httpServer {http.Server} A configured server object.
+   */
+  public static createServer(config: HttpServerConfiguration) : http.Server {
     // Initialize app
     let httpServer = http.createServer(config.app);
 
@@ -79,10 +86,10 @@ export default class HttpHelper {
     httpServer.listen(config.httpPort);
 
     // add error handler
-    httpServer.on("error", config.onError);
+    httpServer.on("error", config.listeners.onError);
 
     // start listening on port
-    httpServer.on("listening", config.onListening);
+    httpServer.on("listening", config.listeners.onListening);
 
     return httpServer;
   }

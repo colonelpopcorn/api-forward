@@ -4,7 +4,7 @@ import { assert } from "chai";
 describe('ApiForward.HttpHelper', function() {
 
   describe('#normalizePort(portNumber, defaultPort)', function() {
-    it("Should return the same string when passed a string.", function() {
+    it("Should return the same string when passed a string", function() {
       const server = HttpHelper;
       const testStr = "Something stupid";
 
@@ -13,7 +13,7 @@ describe('ApiForward.HttpHelper', function() {
       assert.strictEqual(normalizedPort, testStr);
     });
 
-    it("Should return a number when passed a number.", function() {
+    it("Should return a number when passed a number", function() {
       const server = HttpHelper;
 
       let normalizedPort = server.normalizePort("9000", 8080);
@@ -24,7 +24,7 @@ describe('ApiForward.HttpHelper', function() {
   });
 
   describe("#getEventListeners()", function() {
-    it("Should return an object with functions in it.", function() {
+    it("Should return an object with functions in it", function() {
       const listeners = HttpHelper.getEventListeners();
 
       assert.isFunction(listeners.onError);
@@ -33,6 +33,9 @@ describe('ApiForward.HttpHelper', function() {
   });
 
   describe("#createServer", function() {
+    it("Should return an http server that is configured correctly", function() {
+
+    });
 
   });
 });
