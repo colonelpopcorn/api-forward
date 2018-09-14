@@ -78,12 +78,13 @@ export default class HttpHelper {
    * @param config {HttpServerConfiguration} An object containing an app, a port, and onError and onListening handlers.
    * @returns httpServer {http.Server} A configured server object.
    */
-  public static createServer(config: HttpServerConfiguration) : http.Server {
+  public static createServer(config: HttpServerConfiguration, start: boolean) : http.Server {
     // Initialize app
     let httpServer = http.createServer(config.app);
 
     // listen on provided ports
-    httpServer.listen(config.httpPort);
+    if (start)
+      httpServer.listen(config.httpPort);
 
     // add error handler
     httpServer.on("error", config.listeners.onError);

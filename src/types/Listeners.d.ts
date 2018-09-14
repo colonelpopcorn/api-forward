@@ -1,4 +1,4 @@
 export interface Listeners {
-  onError: Function,
-  onListening: Function
+  onError: Function | any,
+  onListening: Function | any
 }

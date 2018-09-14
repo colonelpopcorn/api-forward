@@ -14,6 +14,5 @@ app.set("port", httpPort);
 var httpServer = HttpHelper.createServer({
   app,
   httpPort,
-  onError: listeners.onError,
-  onListening: listeners.onListening
-});
+  listeners
+}, true);
