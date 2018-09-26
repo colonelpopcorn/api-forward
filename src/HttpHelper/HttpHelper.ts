@@ -1,5 +1,5 @@
 import http from "http";
-import { HttpServerConfiguration } from "types/HttpServerConfiguration";
+import { HttpServerConfiguration } from "../types/HttpServerConfiguration";
 
 /** Collection of help functions to start a Node.js http server. */
 export default class HttpHelper {

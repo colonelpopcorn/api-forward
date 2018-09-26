@@ -4,7 +4,7 @@
   "description": "An api to forward requests from fiddles and pens.",
   "main": "app.js",
   "scripts": {
-    "build": "tsc -p ./src/tsconfig.json",
+    "build": "tsc -p .",
     "dev": "cross-env NODE-ENV=development nodemon ./bin/www",
     "start": "node ./bin/www",
     "test": "ts-mocha -p src/ src/**/*.spec.ts"
