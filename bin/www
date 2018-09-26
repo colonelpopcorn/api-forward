@@ -2,17 +2,17 @@
 "use strict";
 
 //module dependencies
-var HttpHelper = require("../build/app").HttpHelper;
-var Server = require("../build/app").Server;
+var HttpHelper = require("../build/HttpHelper/HttpHelper").default;
+var Server = require("../build/Server/Server").default;
 var http = require("http");
-
+var httpServer;
 //create http server
-var app = new Server();
+
+var app = Server.bootstrap().app;
 var httpPort = HttpHelper.normalizePort(process.env.PORT, 8080);
-var listeners = HttpHelper.getEventListeners();
 app.set("port", httpPort);
-var httpServer = HttpHelper.createServer({
+httpServer = HttpHelper.createServer({
   app,
   httpPort,
-  listeners
+  debugFunc: (str) => { console.log(str); }
 }, true);

@@ -23,21 +23,11 @@ describe('ApiForward.HttpHelper', function() {
 
   });
 
-  describe("#getEventListeners()", function() {
-    it("Should return an object with functions in it", function() {
-      const listeners = HttpHelper.getEventListeners();
-
-      assert.isFunction(listeners.onError);
-      assert.isFunction(listeners.onListening);
-    })
-  });
-
   describe("#createServer", function() {
     it("Should return an http server that is configured correctly", function() {
-      const app = {};
+      const app = () => {};
       const httpPort = 9000;
-      const listeners = { onError: function() {}, onListening: function() {}};
-      let server = HttpHelper.createServer({ app, httpPort, listeners }, false);
+      let server = HttpHelper.createServer({ app, httpPort, debugFunc: () => {} }, false);
 
       assert.isNotEmpty(server);
     });
