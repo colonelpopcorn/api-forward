@@ -7,13 +7,13 @@
       "noImplicitAny": true,
       "moduleResolution": "node",
       "sourceMap": true,
-      "outDir": "../build",
+      "outDir": "./build",
       "baseUrl": "."
   },
   "exclude": [
     "**/*.spec.ts"
   ],
   "include": [
-    "src/**/*.ts"
+    "**/*.ts"
   ]
 }
