@@ -1,1 +1,1 @@
-/* tslint:disable only-arrow-functions */
+/* tslint:disable only-arrow-functions no-empty */

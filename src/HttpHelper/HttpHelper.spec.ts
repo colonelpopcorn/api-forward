@@ -1,4 +1,4 @@
-/* tslint:disable only-arrow-functions */
+/* tslint:disable only-arrow-functions no-empty */
 import { assert } from "chai";
 import HttpHelper from "./HttpHelper";
 
@@ -26,12 +26,12 @@ describe("ApiForward.HttpHelper", function() {
 
   describe("#createServer", function() {
     it("Should return an http server that is configured correctly", function() {
-      const app = () => { /* unnecessary comment for tslint */};
+      const app = () => {};
       const httpPort = 9000;
       const server = HttpHelper.createServer(
         {
           app,
-          debugFunc: () => { /* unnecessary comment for tslint */},
+          debugFunc: () => {},
           httpPort,
         },
           false,
