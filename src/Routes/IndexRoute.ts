@@ -8,7 +8,7 @@ export default class IndexRoute {
     });
   }
 
-  public index(req: Request, res: Response, next: NextFunction) {
+  private index(req: Request, res: Response, next: NextFunction) {
     // render json string
     res.json({
       name: "api-forward",

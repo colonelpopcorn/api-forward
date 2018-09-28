@@ -5,8 +5,8 @@ import errorHandler = require("errorhandler");
 import Express from "Express";
 import methodOverride = require("method-override");
 import logger from "morgan";
-import * as path from "path";
 import IndexRoute from "../Routes/IndexRoute";
+import ProxyRoute from "../Routes/ProxyRoute";
 
 /**
  * A container for the express logic.
@@ -90,6 +90,9 @@ export default class Server {
         err.status = 404;
         next(err);
     });
+
+    // error handling
+    this.app.use(errorHandler());
   }
 
   /**
@@ -104,6 +107,9 @@ export default class Server {
     router = Express.Router();
     // IndexRoute
     IndexRoute.create(router);
+
+    // ProxyRoute
+    ProxyRoute.create(router);
 
     // use router middleware
     this.app.use(router);
