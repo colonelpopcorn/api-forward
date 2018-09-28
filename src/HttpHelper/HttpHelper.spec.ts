@@ -1,14 +1,15 @@
-import HttpHelper from "./HttpHelper"
+/* tslint:disable only-arrow-functions */
 import { assert } from "chai";
+import HttpHelper from "./HttpHelper";
 
-describe('ApiForward.HttpHelper', function() {
+describe("ApiForward.HttpHelper", function() {
 
-  describe('#normalizePort(portNumber, defaultPort)', function() {
+  describe("#normalizePort(portNumber, defaultPort)", function() {
     it("Should return the same string when passed a string", function() {
       const server = HttpHelper;
       const testStr = "Something stupid";
 
-      let normalizedPort = server.normalizePort(testStr, 8080);
+      const normalizedPort = server.normalizePort(testStr, 8080);
 
       assert.strictEqual(normalizedPort, testStr);
     });
@@ -16,18 +17,25 @@ describe('ApiForward.HttpHelper', function() {
     it("Should return a number when passed a number", function() {
       const server = HttpHelper;
 
-      let normalizedPort = server.normalizePort("9000", 8080);
+      const normalizedPort = server.normalizePort("9000", 8080);
 
       assert.strictEqual(normalizedPort, 9000);
-    })
+    });
 
   });
 
   describe("#createServer", function() {
     it("Should return an http server that is configured correctly", function() {
-      const app = () => {};
+      const app = () => { /* unnecessary comment for tslint */};
       const httpPort = 9000;
-      let server = HttpHelper.createServer({ app, httpPort, debugFunc: () => {} }, false);
+      const server = HttpHelper.createServer(
+        {
+          app,
+          debugFunc: () => { /* unnecessary comment for tslint */},
+          httpPort,
+        },
+          false,
+        );
 
       assert.isNotEmpty(server);
     });

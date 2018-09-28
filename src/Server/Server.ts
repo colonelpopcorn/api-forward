@@ -6,9 +6,10 @@ import Express from "Express";
 import methodOverride = require("method-override");
 import logger from "morgan";
 import * as path from "path";
+import IndexRoute from "../Routes/IndexRoute";
 
 /**
- * The server.
+ * A container for the express logic.
  *
  * @class Server
  */
@@ -97,7 +98,14 @@ export default class Server {
    * @class Server
    * @method api
    */
-  public routes() {
-    // empty for now
+  private routes() {
+    let router: Express.Router;
+
+    router = Express.Router();
+    // IndexRoute
+    IndexRoute.create(router);
+
+    // use router middleware
+    this.app.use(router);
   }
 }

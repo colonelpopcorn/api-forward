@@ -51,11 +51,11 @@ export default class HttpHelper {
       // handle specific listen errors with friendly messages
       switch (error.code) {
         case "EACCES":
-          console.error(bind + " requires elevated privileges");
+          console.error(bind + " requires elevated privileges"); // tslint:disable-line no-console
           process.exit(1);
           break;
         case "EADDRINUSE":
-          console.error(bind + " is already in use");
+          console.error(bind + " is already in use"); // tslint:disable-line no-console
           process.exit(1);
           break;
         default:
@@ -69,12 +69,12 @@ export default class HttpHelper {
       const bind = typeof addr === "string"
         ? "pipe " + addr
         : "port " + addr.port;
-      debug("Listening on balls and a half num," + bind);
+      debug(`Listening on ${bind}.`);
     });
 
     // listen on provided ports
     if (start) {
-      console.log("Server starting");
+      console.log("Server starting"); // tslint:disable-line no-console
       httpServer.listen(config.httpPort);
     }
 

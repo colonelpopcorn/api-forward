@@ -11,6 +11,6 @@ const httpPort = HttpHelper.normalizePort(process.env.PORT, 8080);
 app.set("port", httpPort);
 const httpServer = HttpHelper.createServer({
   app,
-  debugFunc: (str: string) => { console.log(str); },
+  debugFunc: (str: string) => { console.log(str); }, // tslint:disable-line no-console
   httpPort,
 }, true);
