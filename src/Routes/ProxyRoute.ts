@@ -6,7 +6,7 @@ import https from "https";
 export default class ProxyRoute {
 
   public static create(router: Router) {
-    router.get("/:appName", (req: Request, res: Response, next: NextFunction) => {
+    router.get("/request/:appName", (req: Request, res: Response, next: NextFunction) => {
       try {
         new ProxyRoute().index(req, res, next);
       } catch (err) {
@@ -26,7 +26,7 @@ export default class ProxyRoute {
     params: {},
     proxy: false,
     responseType: "json",
-    timeout: 1000,
+    timeout: 10000,
     transformResponse: [],
     url: "",
     validateStatus: (status) => {
@@ -37,13 +37,24 @@ export default class ProxyRoute {
 
   private async index(req: Request, res: Response, next: NextFunction) {
     const appName: string = req.params.appName;
+
+    console.log("Inside the proxy route");
+
+    if (!appName) {
+      next();
+      return;
+    }
     // Extract the particulars from the env file.
     const envForApp: object = this.getEnvForApp(appName);
+    let remoteRes = {};
 
-    // Proxy the request.
-    const remoteRes = await this.getResponse(req, envForApp);
-
-    res.json(remoteRes);
+    try {
+      // Proxy the request.
+      remoteRes = await this.getResponse(req, envForApp);
+      res.json(remoteRes);
+    } catch (err) {
+      next(err);
+    }
   }
 
   private async getResponse(req: Request, envForApp: any): Promise<any> {
@@ -53,7 +64,7 @@ export default class ProxyRoute {
     try {
       remoteRes = await axios(reqConfig);
     } catch (err) {
-      throw new Error("Request to remote url failed");
+      throw err.message;
     }
     return remoteRes[envForApp.rootProp];
   }

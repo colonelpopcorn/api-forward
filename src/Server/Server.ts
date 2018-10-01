@@ -62,7 +62,7 @@ export default class Server {
 
     // use json form parser middleware
     this.app.use(bodyParser.json());
-    this.app.set("json spaces", isDevelopment ? 4 : 0);
+    this.app.set("json spaces", 4);
 
     // use query string parser middlware
     this.app.use(bodyParser.urlencoded({
