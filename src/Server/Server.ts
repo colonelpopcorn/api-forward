@@ -45,19 +45,6 @@ export default class Server {
 
     // add routes
     this.routes();
-
-    // add api
-    this.api();
-  }
-
-  /**
-   * Create REST API routes
-   *
-   * @class Server
-   * @method api
-   */
-  public api() {
-    // empty for now
   }
 
   /**
@@ -68,8 +55,10 @@ export default class Server {
    */
   public config() {
     const isDevelopment = process.env.NODE_ENV;
+    console.dir(process.env);
     // get environment variables into node process
     dotenv.config();
+    console.dir(process.env);
     // use logger middlware
     if (isDevelopment) { this.app.use(logger("dev")); }
 
