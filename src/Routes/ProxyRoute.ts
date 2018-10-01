@@ -38,10 +38,6 @@ export default class ProxyRoute {
   private async index(req: Request, res: Response, next: NextFunction) {
     const appName: string = req.params.appName;
 
-    if (!appName) {
-      next();
-      return;
-    }
     // Extract the particulars from the env file.
     const envForApp: object = this.getEnvForApp(appName);
     let remoteRes = {};
