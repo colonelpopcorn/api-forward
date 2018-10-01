@@ -53,7 +53,7 @@ export default class ProxyRoute {
     try {
       remoteRes = await axios(reqConfig);
     } catch (err) {
-      remoteRes[envForApp.rootProp] =  { status: "Request to remote url failed", msg: err.message, stack: err.stack };
+      throw new Error("Request to remote url failed");
     }
     return remoteRes[envForApp.rootProp];
   }
