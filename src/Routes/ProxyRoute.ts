@@ -7,7 +7,11 @@ export default class ProxyRoute {
 
   public static create(router: Router) {
     router.get("/:appName", (req: Request, res: Response, next: NextFunction) => {
-      new ProxyRoute().index(req, res, next);
+      try {
+        new ProxyRoute().index(req, res, next);
+      } catch (err) {
+        next(err);
+      }
     });
   }
 
