@@ -6,9 +6,10 @@
   "scripts": {
     "build": "tsc -p .",
     "dev": "cross-env NODE-ENV=development nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
+    "heroku-postbuild": "yarn run build",
+    "lint": "tslint -p .",
     "start": "node ./build/index.js",
-    "test": "ts-mocha -p . src/**/*.spec.ts",
-    "heroku-postbuild": "yarn run build"
+    "test": "ts-mocha -p . src/**/*.spec.ts"
   },
   "repository": {
     "type": "git",

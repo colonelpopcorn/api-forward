@@ -45,12 +45,16 @@ export default class ProxyRoute {
   private async getResponse(req: Request, envForApp: any): Promise<any> {
     const routeConf: AxiosRequestConfig = {method: req.method, data: {}};
     const reqConfig = Object.assign(ProxyRoute.RootAxiosConfig, routeConf, envForApp);
-    const remoteRes: any = await axios(reqConfig);
+    let remoteRes: any = {};
+    try {
+      remoteRes = await axios(reqConfig);
+    } catch (err) {
+      remoteRes[envForApp.rootProp] =  { status: "Request to remote url failed", msg: err.message, stack: err.stack };
+    }
     return remoteRes[envForApp.rootProp];
   }
 
   private getEnvForApp(appName: string): any {
-    console.log("Get env for app params: ", appName, process.env[appName]);
     const envStrsForApp = process.env[appName].split(",");
     const envForApp: any = Object.assign(ProxyRoute.RootAxiosConfig, {
       rootProp: process.env[appName + "_ROOT_PROP"],
