@@ -31,11 +31,6 @@ export default class ProxyRoute {
     withCredentials: false,
   };
 
-  private static readonly PostConfig: AxiosRequestConfig = {
-    data: {},
-    method: "POST",
-  };
-
   private async index(req: Request, res: Response, next: NextFunction) {
     const appName: string = req.params.appName;
     // Extract the particulars from the env file.
@@ -48,10 +43,12 @@ export default class ProxyRoute {
   }
 
   private async getResponse(req: Request, envForApp: any): Promise<any> {
-    const reqConfig = Object.assign(ProxyRoute.RootAxiosConfig, envForApp);
+    const routeConf: AxiosRequestConfig = {method: req.method, data: {}};
+    const reqConfig = Object.assign(ProxyRoute.RootAxiosConfig, routeConf, envForApp);
     const remoteRes: any = await axios(reqConfig);
     return remoteRes[envForApp.rootProp];
   }
+
   private getEnvForApp(appName: string): any {
     const envStrsForApp = process.env[appName].split(",");
     const envForApp: any = Object.assign(ProxyRoute.RootAxiosConfig, {

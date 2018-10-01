@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import errorHandler = require("errorhandler");
-import Express from "Express";
+import Express from "express";
 import methodOverride = require("method-override");
 import logger from "morgan";
 import IndexRoute from "../Routes/IndexRoute";
