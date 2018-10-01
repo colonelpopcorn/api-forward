@@ -50,6 +50,7 @@ export default class ProxyRoute {
   }
 
   private getEnvForApp(appName: string): any {
+    console.log("Get env for app params: ", appName, process.env[appName]);
     const envStrsForApp = process.env[appName].split(",");
     const envForApp: any = Object.assign(ProxyRoute.RootAxiosConfig, {
       rootProp: process.env[appName + "_ROOT_PROP"],
