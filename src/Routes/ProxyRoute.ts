@@ -38,8 +38,6 @@ export default class ProxyRoute {
   private async index(req: Request, res: Response, next: NextFunction) {
     const appName: string = req.params.appName;
 
-    console.log("Inside the proxy route");
-
     if (!appName) {
       next();
       return;
