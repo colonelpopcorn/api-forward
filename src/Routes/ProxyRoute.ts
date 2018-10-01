@@ -6,9 +6,17 @@ import https from "https";
 export default class ProxyRoute {
 
   public static create(router: Router) {
-    router.get("/request/:appName", (req: Request, res: Response, next: NextFunction) => {
+    const proxyRoute = new ProxyRoute();
+    router.post("/request", (req: Request, res: Response, next: NextFunction) => {
       try {
-        new ProxyRoute().index(req, res, next);
+        proxyRoute.customRequest(req, res, next);
+      } catch (err) {
+        next(err);
+      }
+    });
+    router.all("/request/:appName", (req: Request, res: Response, next: NextFunction) => {
+      try {
+        proxyRoute.index(req, res, next);
       } catch (err) {
         next(err);
       }
@@ -51,8 +59,21 @@ export default class ProxyRoute {
     }
   }
 
+  private async customRequest(req: Request, res: Response, next: NextFunction) {
+    let remoteRes = {};
+
+    try {
+      remoteRes = await this.getResponse(req, req.params);
+      res.json(remoteRes);
+    } catch (err) {
+      next(err);
+    }
+  }
+
   private async getResponse(req: Request, envForApp: any): Promise<any> {
     const routeConf: AxiosRequestConfig = {method: req.method, data: {}};
+
+    // If we post a whole axios config we can just make a custom request.
     const reqConfig = Object.assign(ProxyRoute.RootAxiosConfig, routeConf, envForApp);
     let remoteRes: any = {};
     try {
