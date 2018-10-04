@@ -76,7 +76,6 @@ export default class Server {
       const whitelist = process.env.WHITELIST.split(",");
       const corsOpts = {
         origin: (origin: any, callback: (err: Error | any, arg2?: any) => void) => {
-          console.log(origin); // tslint:disable-line no-console
           if (whitelist.indexOf(origin) !== -1) {
             callback(null, true);
           } else {
