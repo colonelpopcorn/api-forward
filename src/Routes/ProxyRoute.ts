@@ -4,23 +4,28 @@ import http from "http";
 import https from "https";
 
 export default class ProxyRoute {
-
   public static create(router: Router) {
     const proxyRoute = new ProxyRoute();
-    router.post("/request", (req: Request, res: Response, next: NextFunction) => {
-      try {
-        proxyRoute.customRequest(req, res, next);
-      } catch (err) {
-        next(err);
+    router.post(
+      "/request",
+      (req: Request, res: Response, next: NextFunction) => {
+        try {
+          proxyRoute.customRequest(req, res, next);
+        } catch (err) {
+          next(err);
+        }
       }
-    });
-    router.all("/request/:appName", (req: Request, res: Response, next: NextFunction) => {
-      try {
-        proxyRoute.index(req, res, next);
-      } catch (err) {
-        next(err);
+    );
+    router.all(
+      "/request/:appName",
+      (req: Request, res: Response, next: NextFunction) => {
+        try {
+          proxyRoute.index(req, res, next);
+        } catch (err) {
+          next(err);
+        }
       }
-    });
+    );
   }
 
   private static readonly RootAxiosConfig: AxiosRequestConfig = {
@@ -71,17 +76,21 @@ export default class ProxyRoute {
   }
 
   private async getResponse(req: Request, envForApp: any): Promise<any> {
-    const routeConf: AxiosRequestConfig = {method: req.method, data: {}};
+    const routeConf: AxiosRequestConfig = { method: req.method, data: {} };
 
     // If we post a whole axios config we can just make a custom request.
-    const reqConfig = Object.assign(ProxyRoute.RootAxiosConfig, routeConf, envForApp);
+    const reqConfig = Object.assign(
+      ProxyRoute.RootAxiosConfig,
+      routeConf,
+      envForApp
+    );
     let remoteRes: any = {};
     try {
       remoteRes = await axios(reqConfig);
     } catch (err) {
       throw err.message;
     }
-    return remoteRes[envForApp.rootProp];
+    return envForApp.rootProp ? remoteRes[envForApp.rootProp] : remoteRes;
   }
 
   private getEnvForApp(appName: string): any {
@@ -91,19 +100,22 @@ export default class ProxyRoute {
       url: process.env[appName + "_URL"],
     });
     // console.dir(process.env); // tslint:disable-line no-console
-    envStrsForApp.forEach((envStr) => {
-      const processEnvKey = process.env[envStr + "_KEY"] ;
-      const processEnvVal = process.env[envStr + "_VALUE"];
-      const processEnvOpts = process.env[envStr + "_OPTS"]; // contemplating this one
-      if (processEnvOpts.includes("isHeader")) {
-        envForApp.headers[processEnvKey] = processEnvVal;
-      } else if (processEnvOpts.includes("isRequestProp")) {
-        envForApp.data[processEnvKey] = processEnvVal;
-      } else if (processEnvOpts.includes("isQueryStr")) {
-        envForApp.params[processEnvKey] = processEnvVal;
-      }
-    });
+    if (envStrsForApp) {
+      envStrsForApp.forEach((envStr) => {
+        const processEnvKey = process.env[envStr + "_KEY"];
+        const processEnvVal = process.env[envStr + "_VALUE"];
+        const processEnvOpts = process.env[envStr + "_OPTS"]; // contemplating this one
+        if (processEnvOpts.includes("isHeader")) {
+          envForApp.headers[processEnvKey] = processEnvVal;
+        } else if (processEnvOpts.includes("isRequestProp")) {
+          envForApp.data[processEnvKey] = processEnvVal;
+        } else if (processEnvOpts.includes("isQueryStr")) {
+          envForApp.params[processEnvKey] = processEnvVal;
+        } else if (processEnvOpts.includes("isRouteParams")) {
+          envForApp.url += processEnvVal;
+        }
+      });
+    }
     return envForApp;
   }
-
 }
