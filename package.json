@@ -11,6 +11,9 @@
     "start": "node ./build/index.js",
     "test": "ts-mocha -p . src/**/*.spec.ts"
   },
+  "engines": {
+    "node": ">=15.5.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/colonelpopcorn/api-forward.git"
