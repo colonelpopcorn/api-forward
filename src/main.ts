@@ -5,8 +5,11 @@
 
 import * as express from 'express';
 import { forwardRoute } from './app/forward-route';
+import * as cors from 'cors';
 
 const app = express();
+
+app.use(cors());
 
 app.get('/', (_, res) => {
   res.send({ message: 'Welcome to api-forward!', version: "0.3.0" });
